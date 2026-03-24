@@ -1,15 +1,19 @@
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class TrainConsistManagementApp {
     public static void main(String[] args) {
         System.out.println("============================\n");
-        System.out.println("Train Consist Management App");
+        System.out.println("Map Bogie to Capacity (HashMap)");
         System.out.println("============================\n");
-        List<String> trainConsist = new ArrayList<>();
-        System.out.println("Train initialized successfully...");
-        System.out.println("Initial Bogie Count: "+trainConsist.size());
-        System.out.println("Current Train Consist: "+trainConsist);
-        System.out.println("System ready for operations...");
+        Map<String, Integer> capacityMap = new HashMap<>();
+        capacityMap.put("First Class", 24);
+        capacityMap.put("Cargo", 120);
+        capacityMap.put("Sleeper", 72);
+        capacityMap.put("AC Chair", 56);
+        System.out.println("Bogie Capacity Details:\n");
+        for(Map.Entry<String, Integer> entry : capacityMap.entrySet()){
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
