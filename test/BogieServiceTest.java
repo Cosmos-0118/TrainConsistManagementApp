@@ -277,6 +277,40 @@ public class BogieServiceTest {
                 service.searchBogieById(bogieIds, "BG101"));
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void testSearch_ThrowsExceptionWhenEmpty() {
+        String[] bogieIds = new String[0];
+        service.searchBogieById(bogieIds, "BG101");
+    }
+
+    @Test
+    public void testSearch_AllowsSearchWhenDataExists() {
+        String[] bogieIds = { "BG101", "BG205" };
+        assertTrue("Search should execute successfully when bogie data exists",
+                service.searchBogieById(bogieIds, "BG101"));
+    }
+
+    @Test
+    public void testSearch_BogieFoundAfterValidation() {
+        String[] bogieIds = { "BG101", "BG205", "BG309" };
+        assertTrue("Search should find the bogie after validation",
+                service.searchBogieById(bogieIds, "BG205"));
+    }
+
+    @Test
+    public void testSearch_BogieNotFoundAfterValidation() {
+        String[] bogieIds = { "BG101", "BG205", "BG309" };
+        assertFalse("Search should return false when bogie ID is not found",
+                service.searchBogieById(bogieIds, "BG999"));
+    }
+
+    @Test
+    public void testSearch_SingleElementValidCase() {
+        String[] bogieIds = { "BG101" };
+        assertTrue("Search should work correctly for a single bogie entry",
+                service.searchBogieById(bogieIds, "BG101"));
+    }
+
     @Test
     public void testBinarySearch_BogieFound() {
         String[] bogieIds = { "BG101", "BG205", "BG309", "BG412", "BG550" };
@@ -312,11 +346,10 @@ public class BogieServiceTest {
                 service.binarySearchBogieById(bogieIds, "BG101"));
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void testBinarySearch_EmptyArray() {
         String[] bogieIds = new String[0];
-        assertFalse("Binary search should return false for an empty array",
-                service.binarySearchBogieById(bogieIds, "BG101"));
+        service.binarySearchBogieById(bogieIds, "BG101");
     }
 
     @Test
